@@ -129,6 +129,17 @@ test('fm.test(string) - no front-matter', function(t) {
   t.end()
 })
 
+test('fm.test(string) - invalid front-matter', function(t){
+  read('invalid1.md', function(err, data) {
+    t.error(err, 'read should not error');
+
+    var content = fm(data);
+    t.equal(content.body, data);
+    t.end()
+    
+  })
+})
+
 function read(file, callback){
   var dir =  path.resolve(__dirname, '../examples')
     , file = path.join(dir, file)

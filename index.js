@@ -28,9 +28,13 @@ function extractor(string) {
 
 function parse(string) {
   var match = regex.exec(string)
-  var yaml = match[match.length - 1].replace(/^\s+|\s+$/g, '')
-  var attributes = parser.load(yaml) || {}
-  var body = string.replace(match[0], '')
+  var body = string
+  var attributes = {}
+  if (match) {
+    var yaml = match[match.length - 1].replace(/^\s+|\s+$/g, '')
+    attributes = parser.load(yaml) || {}
+    body = string.replace(match[0], '')
+  }
 
   return { attributes: attributes, body: body }
 }
